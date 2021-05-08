@@ -1,0 +1,61 @@
+<html>
+
+	<head>
+		
+		<title>Reaction game</title>
+
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+	</head>
+	
+	<body>
+
+		<h1>Reaction Time Game</h1>
+		<p>Click on the boxes and the circles as quickly as you can</p>
+		<p>Your reaction time is <span id="final"></span></p>
+
+		<div id="disappear"></div>
+
+		<script type="text/javascript">
+
+			function color(){
+				const randomColor = Math.floor(Math.random()*16777214).toString(16);
+				return ("#" + randomColor);
+			}
+
+			function shapeSize() {
+
+				var element = document.getElementById("disappear");
+				var rand1 = Math.floor((Math.random()*100)+50);
+
+				if((Math.floor(Math.random()*10)%2)==0) {
+					element.style = "border-radius: 50%;";
+				}
+
+				element.style.width = rand1 + "px";
+				element.style.height = rand1 + "px";
+				element.style.cssText += "background-color:" + color() + ";";
+				var x = Math.floor(Math.random()*37);
+				var y = Math.floor(Math.random()*91);
+				element.style.cssText += "margin:" + x + "vh " + y + "vw;";
+			}
+
+			shapeSize();
+			var initial = new Date().getTime();   
+			
+			document.getElementById("disappear").onclick = function() {
+					
+				document.getElementById("disappear").style.display = "none";
+				var final = new Date().getTime();
+				var reacTime = (final - initial)/1000;
+				document.getElementById("final").innerHTML = reacTime + " seconds";
+				setTimeout(shapeSize,Math.random()*1000);
+				initial = new Date().getTime();
+
+			}
+
+		</script>
+	
+	</body>
+
+</html>
